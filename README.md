@@ -16,7 +16,7 @@ Steps to Run:
 
 1. Clone or download the project 
 ```sh
-git clone 
+git clone https://github.com/imlazart/auto_car_simulator.git
 ```
 
 
