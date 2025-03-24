@@ -51,14 +51,14 @@ def process_commands(cars, width, height):
 
         
         for pos, car_list in new_positions.items():
-        """ Detect direct collisions this step """
+            """ Detect direct collisions this step """
             if len(car_list) > 1 or pos in collided_positions:  
                 collisions[pos] = car_list
                 collided_positions[pos] = collided_positions.get(pos, []) + car_list  
 
         
         for name in list(active_cars):
-        """Detect late collisions (cars moving into a previously collided position)"""
+            """Detect late collisions (cars moving into a previously collided position)"""
             car_pos = cars[name]['position']
             if car_pos in collided_positions and name not in collided_positions[car_pos]:  
                 collisions[car_pos] = collisions.get(car_pos, []) + [name]
