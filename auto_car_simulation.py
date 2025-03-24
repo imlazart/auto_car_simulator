@@ -23,9 +23,9 @@ def move_forward(car, width, height):
 def process_commands(cars, width, height):
     """Processes commands step-by-step for each car and detects multiple collisions."""
     steps = max(len(car['commands']) for car in cars.values())
-    occupied_positions = {car['position']: name for name, car in cars.items()}  # Track positions of active cars
-    active_cars = set(cars.keys())  # Keeps track of cars that haven't collided
-    collided_positions = {}  # Stores positions where collisions occurred
+    occupied_positions = {car['position']: name for name, car in cars.items()}  
+    active_cars = set(cars.keys())  
+    collided_positions = {}  
 
     print("\nYour current list of cars are:")
     for name, car in cars.items():
@@ -33,10 +33,10 @@ def process_commands(cars, width, height):
     print()
 
     for step in range(steps):
-        new_positions = {}  # Temporary storage for positions this step
-        collisions = {}  # Tracks collisions at this step
+        new_positions = {}  
+        collisions = {}  
 
-        for name in list(active_cars):  # Only process active cars
+        for name in list(active_cars):  
             car = cars[name]
             if step < len(car['commands']):
                 command = car['commands'][step]
@@ -52,17 +52,17 @@ def process_commands(cars, width, height):
         
         for pos, car_list in new_positions.items():
         """ Detect direct collisions this step """
-            if len(car_list) > 1 or pos in collided_positions:  # Collision detected
+            if len(car_list) > 1 or pos in collided_positions:  
                 collisions[pos] = car_list
-                collided_positions[pos] = collided_positions.get(pos, []) + car_list  # Store collision site
+                collided_positions[pos] = collided_positions.get(pos, []) + car_list  
 
         
         for name in list(active_cars):
         """Detect late collisions (cars moving into a previously collided position)"""
             car_pos = cars[name]['position']
-            if car_pos in collided_positions and name not in collided_positions[car_pos]:  # New collision at a site
+            if car_pos in collided_positions and name not in collided_positions[car_pos]:  
                 collisions[car_pos] = collisions.get(car_pos, []) + [name]
-                collided_positions[car_pos].append(name)  # Mark car as collided at this position
+                collided_positions[car_pos].append(name)  
 
         if collisions:
             print("\nAfter simulation, the result is:")
@@ -73,7 +73,7 @@ def process_commands(cars, width, height):
                         print(f"- {car}, collides with {', '.join(others)} at {pos} at step {step + 1}")
 
             print("\nCollided cars stop moving.")
-            active_cars -= set(car for cars in collisions.values() for car in cars)  # Remove collided cars
+            active_cars -= set(car for cars in collisions.values() for car in cars)  
 
         if not active_cars:
             print("\nAll cars have stopped due to collisions.")
@@ -82,7 +82,7 @@ def process_commands(cars, width, height):
             print("[2] Exit")
             return  # Stop simulation as all cars are stopped
 
-        occupied_positions = {cars[name]['position']: name for name in active_cars}  # Update occupied positions
+        occupied_positions = {cars[name]['position']: name for name in active_cars}  
 
     print("\nAfter simulation, the final positions are:")
     for name, car in cars.items():
