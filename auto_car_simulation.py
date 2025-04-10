@@ -2,6 +2,7 @@ import sys
 
 directions = ['N', 'E', 'S', 'W']
 
+
 def rotate(car, command):
     """Rotates the car left (L) or right (R)."""
     index = directions.index(car['direction'])
